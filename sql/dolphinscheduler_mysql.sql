@@ -883,6 +883,7 @@ CREATE TABLE `t_ds_udfs` (
 DROP TABLE IF EXISTS `t_ds_user`;
 CREATE TABLE `t_ds_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id',
+  `test_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'user id',
   `user_name` varchar(64) DEFAULT NULL COMMENT 'user name',
   `user_password` varchar(64) DEFAULT NULL COMMENT 'user password',
   `user_type` tinyint(4) DEFAULT NULL COMMENT 'user type, 0:administrator，1:ordinary user',
