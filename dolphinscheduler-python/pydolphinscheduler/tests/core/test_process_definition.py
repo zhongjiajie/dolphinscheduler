@@ -63,6 +63,7 @@ def test_process_definition_key_attr(func):
 )
 def test_process_definition_default_value(name, value):
     """Test process definition default attributes."""
+
     with ProcessDefinition(TEST_PROCESS_DEFINITION_NAME) as pd:
         assert getattr(pd, name) == value, (
             f"ProcessDefinition instance attribute `{name}` not with "
