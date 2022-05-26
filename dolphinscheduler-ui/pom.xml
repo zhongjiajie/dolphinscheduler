@@ -50,6 +50,7 @@
                   <goal>install-node-and-pnpm</goal>
                 </goals>
                 <configuration>
+                  <skip>true</skip>
                   <nodeVersion>${node.version}</nodeVersion>
                   <pnpmVersion>${pnpm.version}</pnpmVersion>
                 </configuration>
@@ -61,6 +62,7 @@
                 </goals>
                 <phase>generate-resources</phase>
                 <configuration>
+                  <skip>true</skip>
                   <arguments>install</arguments>
                 </configuration>
               </execution>
@@ -70,6 +72,7 @@
                   <goal>pnpm</goal>
                 </goals>
                 <configuration>
+                  <skip>true</skip>
                   <arguments>run build:prod</arguments>
                 </configuration>
               </execution>
