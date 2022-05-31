@@ -769,6 +769,9 @@ CREATE TABLE `t_ds_resources` (
   UNIQUE KEY `t_ds_resources_un` (`full_name`,`type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+
+
+
 -- ----------------------------
 -- Records of t_ds_resources
 -- ----------------------------
