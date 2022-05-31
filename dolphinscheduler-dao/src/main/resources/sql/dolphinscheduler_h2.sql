@@ -18,6 +18,9 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET REFERENTIAL_INTEGRITY FALSE;
 
+
+
+
 -- ----------------------------
 -- Table structure for QRTZ_JOB_DETAILS
 -- ----------------------------

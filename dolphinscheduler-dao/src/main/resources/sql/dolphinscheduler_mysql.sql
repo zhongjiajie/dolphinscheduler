@@ -770,11 +770,11 @@ CREATE TABLE `t_ds_resources` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
-
-
 -- ----------------------------
 -- Records of t_ds_resources
 -- ----------------------------
+
+
 
 -- ----------------------------
 -- Table structure for t_ds_schedules
