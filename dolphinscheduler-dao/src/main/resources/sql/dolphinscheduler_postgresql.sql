@@ -1906,6 +1906,9 @@ CREATE TABLE t_ds_k8s_namespace (
 -- Table structure for table t_ds_relation_namespace_user
 --
 
+
+
+
 DROP TABLE IF EXISTS t_ds_relation_namespace_user;
 CREATE TABLE t_ds_relation_namespace_user (
     id serial NOT NULL,
