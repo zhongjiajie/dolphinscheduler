@@ -1,3 +1,20 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
 """Tool for cherry-pick merged pull requests."""
 
 import json
@@ -53,10 +70,13 @@ class PullRequest:
             "Authorization": f"token {token}",
         }
 
-    def all_merged_detail(self, milestone: str) -> List[Tuple]:
+    def all_merged_detail(
+        self, milestone: str, order: Optional[bool] = True
+    ) -> List[Tuple]:
         """Get all merged pull detail, including issue number, SHA, merge time by specific milestone.
 
         :param milestone: query by specific milestone.
+        :param order: Whether sorting according the merged time.
         """
         detail = []
         numbers = self.all_merged_number(milestone)
@@ -68,6 +88,8 @@ class PullRequest:
                 pr_dict.get("merged_at"), "%Y-%m-%dT%H:%M:%SZ"
             )
             detail.append((number, sha, merged_at))
+        if order:
+            detail.sort(key=lambda i: i[2])
         return detail
 
     def all_merged_number(self, milestone: str) -> Set[Dict]:
@@ -85,9 +107,7 @@ class PullRequest:
 
         :param milestone: query by specific milestone.
         """
-        params = {
-            "q": f"repo:{self.repo} " "is:pr " "is:merged " f"milestone:{milestone}"
-        }
+        params = {"q": f"repo:{self.repo} is:pr is:merged milestone:{milestone}"}
         prs = get_total(url=self.url_search, headers=self.headers, param=params)
         return {pr.get("number") for pr in prs}
 
@@ -96,9 +116,7 @@ class PullRequest:
 
         :param milestone: query by specific milestone.
         """
-        params = {
-            "q": f"repo:{self.repo} " "is:issue " "is:closed " f"milestone:{milestone}"
-        }
+        params = {"q": f"repo:{self.repo} is:issue is:closed milestone:{milestone}"}
         issues = get_total(url=self.url_search, headers=self.headers, param=params)
 
         issue_prs = set()
@@ -129,10 +147,9 @@ class PullRequest:
 
 
 if __name__ == "__main__":
-    # TODO remove this config
-    access_token = (
-        os.environ.get("GH_ACCESS_TOKEN") or "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"
-    )
-    milestone = os.environ.get("GH_REPO_MILESTONE") or "3.0.1"
+    access_token = os.environ.get("GH_ACCESS_TOKEN")
+    milestone = os.environ.get("GH_REPO_MILESTONE")
     pr = PullRequest(token=access_token)
     merged_pr = pr.all_merged_detail(milestone)
+    for mpr in merged_pr:
+        print(f"git cherry-pick -x {mpr[1]}")
