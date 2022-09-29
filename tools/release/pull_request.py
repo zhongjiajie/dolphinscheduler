@@ -122,7 +122,7 @@ class PullRequest:
         issue_prs = set()
         # Get issue related PR
         for issue in issues:
-            # TODO: currently I can only find timeline to get ref PR from issue
+            # TODO: currently can only find timeline to get ref PR from issue, it will make too many HTTP queries
             url_issue_timeline = (
                 f"https://api.github.com/repos/{self.repo}/issues"
                 f"/{issue.get('number')}/timeline"
